@@ -200,11 +200,7 @@ components:
       type: object
       properties:
         detail:
-          oneOf:
-            - type: string
-            - type: array
-              items:
-                type: string
+          type: string
       required:
         - detail
 
@@ -268,20 +264,21 @@ components:
           minItems: 1
           items:
             $ref: "#/components/schemas/OrderItemSchema"
-# security:
-#   - oauth2:
-#       - getOrders
-#       - createOrder
-#       - getOrder
-#       - updateOrder
-#       - deleteOrder
-#       - payOrder
-#       - cancelOrder
-#   - bearerAuth:
-#       - getOrders
-#       - createOrder
-#       - getOrder
-#       - updateOrder
-#       - deleteOrder
-#       - payOrder
-#       - cancelOrder
+
+security:
+  - oauth2:
+      - getOrders
+      - createOrder
+      - getOrder
+      - updateOrder
+      - deleteOrder
+      - payOrder
+      - cancelOrder
+  - bearerAuth:
+      - getOrders
+      - createOrder
+      - getOrder
+      - updateOrder
+      - deleteOrder
+      - payOrder
+      - cancelOrder
