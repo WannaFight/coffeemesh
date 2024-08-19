@@ -2,19 +2,31 @@ import datetime
 import uuid
 from http import HTTPStatus
 
+from orders.api.exceptions import OrderNotFound
+from orders.api.schemas import CreateOrderSchema, GetOrderSchema, GetOrdersSchema
 from starlette import status
 from starlette.responses import Response
 
-from orders.api.exceptions import OrderNotFound
-from orders.api.schemas import CreateOrderSchema, GetOrderSchema, GetOrdersSchema
 from orders.app import app
 
 ORDERS = []
 
 
 @app.get("/orders", response_model=GetOrdersSchema)
-def get_orders():
-    return {"orders": ORDERS}
+def get_orders(cancelled: None | bool = None, limit: int | None = None):
+    if cancelled is None and limit is None:
+        return {"orders": ORDERS}
+
+    if cancelled is not None:
+        if cancelled:
+            queryset = [order for order in ORDERS if order["status"] == "cancelled"]
+        else:
+            queryset = [order for order in ORDERS if order["status"] != "cancelled"]
+
+    if limit is not None and len(queryset) > limit:
+        return {"orders": queryset[:limit]}
+
+    return {"orders": queryset}
 
 
 @app.post(

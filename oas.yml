@@ -6,6 +6,8 @@ info:
   version: "1.0"
 
 servers:
+  - url: http://localhost:8081
+    description: URL for local development and testing
   - url: https://coffeemesh.com
     description: main production server
   - url: https://coffeemesh-staging.com
@@ -38,6 +40,7 @@ paths:
             application/json:
               schema:
                 type: object
+                additionalProperties: false
                 properties:
                   orders:
                     type: array
@@ -198,6 +201,7 @@ components:
   schemas:
     Error:
       type: object
+      additionalProperties: false
       properties:
         detail:
           type: string
@@ -206,6 +210,7 @@ components:
 
     OrderItemSchema:
       type: object
+      additionalProperties: false
       required:
         - product
         - size
@@ -227,6 +232,7 @@ components:
 
     GetOrderSchema:
       type: object
+      additionalProperties: false
       required:
         - id
         - created
@@ -256,6 +262,7 @@ components:
 
     CreateOrderSchema:
       type: object
+      additionalProperties: false
       required:
         - order
       properties:

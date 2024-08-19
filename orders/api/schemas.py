@@ -3,7 +3,7 @@ import uuid
 from enum import Enum
 from typing import Annotated
 
-from pydantic import BaseModel, Field, field_validator, validator
+from pydantic import BaseModel, Field, field_validator
 
 
 class Size(Enum):
@@ -25,6 +25,9 @@ class OrderItemSchema(BaseModel):
     size: Size
     quantity: Annotated[int, Field(strict=True, ge=1)] | None = 1
 
+    class Config:
+        extra = "forbid"
+
     @field_validator("quantity")
     @classmethod
     def quantity_not_nullable(cls, value):
@@ -35,6 +38,9 @@ class OrderItemSchema(BaseModel):
 
 class CreateOrderSchema(BaseModel):
     order: Annotated[list[OrderItemSchema], Field(min_length=1)]
+
+    class Config:
+        extra = "forbid"
 
 
 class GetOrderSchema(CreateOrderSchema):
