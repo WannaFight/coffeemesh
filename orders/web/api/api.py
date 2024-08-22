@@ -2,12 +2,12 @@ import datetime
 import uuid
 from http import HTTPStatus
 
-from orders.api.exceptions import OrderNotFound
-from orders.api.schemas import CreateOrderSchema, GetOrderSchema, GetOrdersSchema
+from orders.web.api.exceptions import OrderNotFound
+from orders.web.api.schemas import CreateOrderSchema, GetOrderSchema, GetOrdersSchema
 from starlette import status
 from starlette.responses import Response
 
-from orders.app import app
+from orders.web.app import app
 
 ORDERS = []
 

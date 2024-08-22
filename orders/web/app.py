@@ -10,10 +10,10 @@ app = FastAPI(
 )
 
 oas_doc = yaml.safe_load(
-    (Path(__file__).parent / "../oas.yml").read_text(),
+    (Path(__file__).parent / "../../oas.yml").read_text(),
 )
 
 app.openapi = lambda: oas_doc
 
 # We import thr api module so that our views can be registred at load time.
-from orders.api import api
+from orders.web.api import api
